@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Sign Language Detection - Feedbacks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f8e9;
+        }
+
+        header {
+            background-color: #cddc39;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav {
+            background-color: #00695c;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e0f2f1;
+            text-decoration-line: underline;
+            text-decoration-color: #4dd0e1;
+            margin: 0 10px;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #827717;
+        }
+
+        p {
+            color: #263238;
+        }
+
+        textarea {
+            background-color: #e0f7fa;
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #827717;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ISL Translator</h1>
+    </header>
+
+    <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
+            <a href="index.html" class="nav-links">Home</a>
+            <a href="recognition.html" class="nav-links">Recognition</a>
+            <a href="gesture.html" class="nav-links">Gesture Generator</a>
+            <a href="feedback.html" class="nav-links">Feedbacks</a>
+            <a href="tutorial.html" class="nav-links">Tutorial</a>
+        </span>
+    </nav>
+
+    <section id="feedbacks">
+        <h2>Feedbacks</h2>
+        <p>Give Your Feedback:</p>
+        <form id="feedbackForm">
+            <textarea id="message" name="message" rows="4" placeholder="Enter your feedback here..."></textarea>
+            <br>
+            <button type="button" onclick="sendFeedback()">Send Feedback</button>
+        </form>
+        <img src="star.gif" width="350px" height="300px">
+    </section>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init('4krXsHSgF0DXPJR3V'); // Replace 'YOUR_PUBLIC_KEY' with your EmailJS Public Key
+        })();
+
+        function sendFeedback() {
+    const feedbackMessage = document.getElementById('message').value;
+    const templateParams = {
+        from_name: 'AKITI AKSHAYA',  // You can replace this with a dynamic name if needed
+        reply_to: 'akitiakshaya@gmail.com',  // Your email or the sender's email
+        message: feedbackMessage  // The actual feedback message
+    };
+
+    emailjs.send('service_ohuaeg8', 'template_qqmkp0f', templateParams)
+        .then(function(response) {
+            alert('Feedback sent successfully!');
+        }, function(error) {
+            alert('Failed to send feedback. Please try again.');
+        });
+}
+
+    </script>
+
+</body>
+</html>

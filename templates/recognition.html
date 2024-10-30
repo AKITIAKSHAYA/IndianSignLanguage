@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Sign Language Detection - Recognition</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+     <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f8e9;
+ }
+header {
+    background-color: #cddc39;
+    text-align: center;
+    padding: 10px;
+}
+nav {
+    background-color: #00695c;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: #e0f2f1;
+    text-decoration-line: underline;
+    text-decoration-color: #4dd0e1;
+    margin: 0 10px;
+}
+section {
+    padding: 20px;
+    text-align: center;
+}
+h2 {
+    color: #827717;
+    margin: 0;
+}
+video, img {
+    background-color: #e0f7fa;
+    width: 700px;
+    height: 400px;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 10px solid black;
+}
+button {
+    background-color: #827717;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        #video, #processed-frame {
+            margin: 10px;
+        }
+#prediction {
+            font-size: 24px; /* Increased font size */
+           text-align: center;
+            margin-top: 10px 0;
+        }
+#text-generator {
+    text-align: center;
+    background-color: #e0f7fa;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 10px solid #333;
+    width: 40%; /* Set the width of the box */
+    margin: 0 auto; /* Center the box horizontally */
+}
+</style>
+
+</head>
+<body>
+<header>
+        <h1>ISL Translator</h1>
+    </header>
+<nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
+            <a href="../index.html" class="nav-links">Home</a>
+            <a href="recognition.html" class="nav-links">Recognition</a>
+            <a href="gesture.html" class="nav-links">Gesture Generator</a>
+            <a href="feedback.html" class="nav-links">Feedbacks</a>
+            <a href="tutorial.html" class="nav-links">Tutorial</a>
+        </span>
+    </nav>
+    <section id="recognition">
+        <h2>Sign Language Recognition</h2>
+    <div id="container">
+    <video id="video" width="640" height="480" autoplay></video>
+    <img id="processed-frame" width="540" height="360" >
+    </div>
+   
+           <div id="text-generator">
+        <h2>Alphabet Generator</h2>
+        <p id="prediction">Your Alphabet is: None</p>
+    </div>
+            
+    <script>
+        const socket = io();
+
+        // Access the camera
+        const video = document.getElementById('video');
+        const processedFrame = document.getElementById('processed-frame');
+        const predictionElement = document.getElementById('prediction');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(err => {
+                console.error("Error accessing the camera: " + err);
+            });
+
+        video.addEventListener('play', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 640;
+            canvas.height = 480;
+            const context = canvas.getContext('2d');
+
+            setInterval(() => {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL('image/jpeg');
+                socket.emit('frame', { image: dataURL });
+            }, 100);
+        });
+
+        socket.on('processed_frame', data => {
+            predictionElement.textContent = `Your Alphabet: ${data.prediction}`;
+            processedFrame.src = data.image;
+            
+        });
+    </script>
+</body>
+</html>

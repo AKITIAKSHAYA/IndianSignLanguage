@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Generator - ISL Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f8e9;
+        }
+        header {
+            background-color: #cddc39;
+            text-align: center;
+            padding: 10px;
+        }
+        nav {
+            background-color: #00695c;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #e0f2f1;
+            text-decoration-line: underline;
+            text-decoration-color: #4dd0e1;
+            margin: 0 10px;
+        }
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #827717;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #827717;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .gesture-image {
+            width: 500px;
+            height: 300px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ISL Translator - Gesture Generator</h1>
+    </header>
+    <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">           
+            <a href="index.html" class="nav-links">Home</a>
+            <a href="recognition.html" class="nav-links">Recognition</a>
+            <a href="gesture.html" class="nav-links">Gesture Generator</a>
+            <a href="feedback.html" class="nav-links">Feedbacks</a>
+            <a href="tutorial.html" class="nav-links">Tutorial</a>
+
+        </span>
+    </nav>
+    <section id="gesture-generator">
+        <h2>Gesture Generator</h2>
+        <label for="alphabetInput">Enter an English Alphabet:</label>
+        <input type="text" id="alphabetInput" placeholder="A-Z" maxlength="1">
+        <button onclick="generateGesture()">Generate Gesture</button><br><br><br>
+        <div id="gestureResult"></div>   
+        <IMG SRC="a.gif" width ="500px" height ="500px">   
+    </section>
+    
+    <script>
+        function generateGesture() {
+    // Get the alphabet entered by the user
+    var alphabet = document.getElementById("alphabetInput").value.toUpperCase();
+    console.log("Input value:", alphabet); // Debugging log for input value
+
+    // Validate the input
+    if (alphabet.length !== 1 || alphabet < 'A' || alphabet > 'Z') {
+        alert("Please enter a valid alphabet (A-Z)");
+        return;
+    }
+
+    // Correcting the image source to point to the static folder
+    var imageSource = "/static/dataset/" + alphabet + "/0.jpg"; // Adjusting for static file serving
+
+    // Debugging log
+    console.log("Image source:", imageSource);
+
+    // Create an image element to check if the image loads
+    var img = new Image();
+    img.src = imageSource;
+
+    img.onload = function() {
+        document.getElementById("gestureResult").innerHTML = "<div class='gesture-result'><img src='" + imageSource + "' alt='" + alphabet + " sign language gesture' class='gesture-image'></div>";
+        console.log('Image loaded successfully:', imageSource);
+    };
+
+    img.onerror = function() {
+        console.error('Error loading image at', imageSource);
+        document.getElementById("gestureResult").innerText = 'Image not found for ' + alphabet + '.';
+        alert("Image not found for " + alphabet + ". Please check the dataset.");
+    };
+}
+    </script>
+</body>
+</html>

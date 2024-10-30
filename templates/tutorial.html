@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Sign Language Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f8e9;
+        }
+
+        header {
+            background-color: #cddc39;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav {
+            background-color: #00695c;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e0f2f1;
+            text-decoration-line: underline;
+            text-decoration-color: #4dd0e1;
+            margin: 0 10px;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #263238
+        }
+
+        h2 {
+            color: #827717;
+        }
+
+        p {
+            color: #263238;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ISL Translator</h1>
+    </header>
+
+    <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
+            <a href="index.html">Home</a>
+            <a href="recognition.html" class="nav-links">Recognition</a>
+            <a href="gesture.html" class="nav-links">Gesture Generator</a>
+            <a href="feedback.html" class="nav-links">Feedbacks</a>
+            <a href="tutorial.html" class="nav-links">Tutorial</a>
+        </span>
+    </nav>
+
+    <section id="tutorial">
+        <h2>Tutorial</h2>
+        <p>This is the tutorial page content.</p>
+        <p>Watch the tutorial below:</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/MJCSjXepaAM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <br><br>
+        <img src="you.gif" width="500px" height="80px">
+    </section>
+
+    <script>
+        let navBarToggle = document.getElementById('js-navbar-toggle');
+
+        navBarToggle.addEventListener('click', function() {
+            let mainNav = document.getElementById('js-menu');
+            mainNav.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
