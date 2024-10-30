@@ -1,0 +1,4 @@
+ISL DETECTION PROJECT DATASET (YOU CAN DOWNLOAD THE DATASET BY USING THE BELOW LINK)
+
+
+https://www.kaggle.com/datasets/vaishnaviasonawane/indian-sign-language-dataset
